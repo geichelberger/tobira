@@ -29,8 +29,14 @@ password = "opencast"
 preferred_harvest_size = 3
 
 [theme]
-logo.large.path = "logo-large.svg"
-logo.large.resolution = [643, 217]
-logo.small.path = "logo-small.svg"
-logo.small.resolution = [102, 115]
+header_height = 36
+logo.margin = 1
+logo.large.path = "eth-logo.svg"
+logo.large.resolution = [192, 31]
+logo.small.path = "eth-logo.svg"
+logo.small.resolution = [192, 31]
 favicon = "favicon.svg"
+
+color.navigation = "#1269B0"
+color.accent = "#72791C"
+color.danger = "#A8322D"
