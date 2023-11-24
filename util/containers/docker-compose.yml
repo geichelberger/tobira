@@ -10,7 +10,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./tobira-auth-proxy-nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./tobira-auth-proxy-nginx.conf:/etc/nginx/conf.d/default.conf:Z
 
   # A simple webserver handling login requests with some dummy users.
   tobira-login-handler:
@@ -20,7 +20,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ../dummy-login/dist/index.js:/usr/bin/login-handler.js
+      - ../dummy-login/dist/index.js:/usr/bin/login-handler.js:Z
     command: node /usr/bin/login-handler.js
 
   # A reverse proxy in front of Opencast that just adds some CORS headers
@@ -32,7 +32,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ./opencast-cors-proxy-nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./opencast-cors-proxy-nginx.conf:/etc/nginx/conf.d/default.conf:Z
 
   # A PostgreSQL database for Tobira.
   tobira-dev-database:
@@ -41,7 +41,7 @@ services:
     ports:
       - 127.0.0.1:5432:5432
     volumes:
-      - tobira-dev-postgres:/var/lib/postgresql/data
+      - tobira-dev-postgres:/var/lib/postgresql/data:Z
     environment:
       - POSTGRES_PASSWORD=tobira
       - POSTGRES_USER=tobira
@@ -54,7 +54,7 @@ services:
     ports:
       - 127.0.0.1:7700:7700
     volumes:
-      - tobira-dev-meili:/data.ms
+      - tobira-dev-meili:/data.ms:Z
     environment:
       - MEILI_NO_ANALYTICS=true
       - MEILI_MASTER_KEY=tobira
