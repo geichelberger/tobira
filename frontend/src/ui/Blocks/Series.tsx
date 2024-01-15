@@ -348,7 +348,7 @@ const ViewMenu: React.FC = () => {
 
     const icon = match(state.viewState, {
         SLIDER: () => <LuColumns />,
-        GALLERY: () => <LuGrid />,
+        GALLERY: () => <LuLayoutGrid />,
         LIST: () => <LuList />,
         "%future added value": () => unreachable(),
     });
@@ -402,10 +402,15 @@ const List: React.FC<ListProps> = ({ type, close }) => {
         }
     };
 
-    const viewItems: [VideoListView, IconType][] = [
-        ["SLIDER", LuColumns],
-        ["GALLERY", LuLayoutGrid],
-        ["LIST", LuList],
+    type ViewTranslationKey = "slider" | "gallery" | "list";
+    const viewItems: [
+        VideoListView,
+        ViewTranslationKey,
+        IconType
+    ][] = [
+        ["SLIDER", "slider", LuColumns],
+        ["GALLERY", "gallery", LuLayoutGrid],
+        ["LIST", "list", LuList],
     ];
 
     type OrderTranslationKey = "new-to-old" | "old-to-new" | "a-z" | "z-a";
@@ -416,7 +421,7 @@ const List: React.FC<ListProps> = ({ type, close }) => {
         ["ZA", "z-a"],
     ];
 
-    const sharedProps = (key: View | OrderTranslationKey) => ({
+    const sharedProps = (key: ViewTranslationKey | OrderTranslationKey) => ({
         close: close,
         label: t(`series.settings.${key}`),
     });
@@ -425,11 +430,11 @@ const List: React.FC<ListProps> = ({ type, close }) => {
         view: () => <>
             <div>{t("series.settings.view")}</div>
             <ul role="menu" onBlur={handleBlur}>
-                {viewItems.map(([view, icon], index) => <MenuItem
+                {viewItems.map(([view, viewKey, icon], index) => <MenuItem
                     key={`${itemId}-${view}`}
                     disabled={viewState === view}
                     Icon={icon}
-                    {...sharedProps(view)}
+                    {...sharedProps(viewKey)}
                     {...itemProps(index)}
                     onClick={() => setViewState(view)}
                 />)}
